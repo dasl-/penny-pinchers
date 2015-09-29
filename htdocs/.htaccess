@@ -1,0 +1,15 @@
+RewriteEngine On
+Options +FollowSymLinks
+
+RewriteCond %{REQUEST_URI} !^/assets [NC]
+
+# HTML
+RewriteRule ^users/new/?$                   /users/new.php                              [NC,QSA,L]
+RewriteRule ^users/([^/]*)/charges/new/?$   /charges/new.php?user_name_or_id=$1         [NC,QSA,L]
+RewriteRule ^users/([^/]*)/charges/?$       /charges/list.php?user_name_or_id=$1        [NC,QSA,L]
+RewriteRule ^charges/(\d*)/?$               /charges/edit.php?charge_id=$1            [NC,QSA,L]
+
+# API
+RewriteRule ^api/v1/users/new/?$                /api/users/new.php              [NC,QSA,L]
+RewriteRule ^api/v1/charges/new/?$              /api/charges/new.php            [NC,QSA,L]
+RewriteRule ^api/v1/charges/([^/]*)/delete/?$   /api/charges/delete.php            [NC,QSA,L]

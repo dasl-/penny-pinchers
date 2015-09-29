@@ -1,0 +1,19 @@
+<?
+
+class Http {
+
+    const METHOD_GET = 'GET';
+    const METHOD_CREATE = 'POST';
+    const METHOD_DELETE = 'DELETE';
+    const METHOD_UPDATE = 'PUT';
+
+    const STATUS_CODE_OK = 200;
+    const STATUS_CODE_BAD_REQUEST = 400;
+    const STATUS_CODE_UNAUTHORIZED = 401;
+    const STATUS_CODE_FORBIDDEN = 403;
+    const STATUS_CODE_NOT_FOUND = 404;
+    const STATUS_CODE_METHOD_NOT_ALLOWED = 405;
+    const STATUS_CODE_TOO_MANY_REQUESTS = 429;
+
+    const STATUS_CODE_INTERNAL_SERVER_ERROR = 500;
+}

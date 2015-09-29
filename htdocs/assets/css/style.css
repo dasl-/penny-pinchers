@@ -1,0 +1,8 @@
+.hidden {
+    display: none;
+}
+.error {
+    color:#BA0000;
+    margin:10px;
+    text-align: left;
+}
