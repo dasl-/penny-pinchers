@@ -1,7 +1,6 @@
 RewriteEngine On
 Options +FollowSymLinks
 
-RewriteCond %{REQUEST_URI} !^/assets [NC]
 ErrorDocument 404 /html/not_found.php
 
 # HTML: endpoints that return html for webrequests.
@@ -9,6 +8,11 @@ RewriteRule ^users/new/?$                   /html/users/new.php                 
 RewriteRule ^users/([^/]*)/charges/new/?$   /html/charges/new.php?user_name_or_id=$1         [NC,QSA,L]
 RewriteRule ^users/([^/]*)/charges/?$       /html/charges/list.php?user_name_or_id=$1        [NC,QSA,L]
 RewriteRule ^charges/([^/]*)/?$             /html/charges/edit.php?charge_id=$1              [NC,QSA,L]
+RewriteRule ^$                              /html/homepage.php                               [NC,QSA,L]
+
+# Treat single characters in the the URL as a special case. Not sure why this is necessary,
+# but otherwise, they'd redirect to the homepage.
+RewriteRule ^.$                             /html/not_found.php                              [R=404,NC,QSA,L]
 
 # API: endpoints that return json.
 RewriteRule ^api/v1/users/new/?$                /api/users/new.php                           [NC,QSA,L]

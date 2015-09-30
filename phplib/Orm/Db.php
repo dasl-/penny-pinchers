@@ -1,6 +1,6 @@
 <?
 
-class Db {
+class Orm_Db {
 
     /** @var PDO */
     private static $pdo;

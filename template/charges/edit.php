@@ -1,4 +1,4 @@
-<? require_once(__DIR__ . '/../shared/header.php'); ?>
+<? require_once "template/shared/header.php"; ?>
 <h2>Charge #<? echo "$charge->charge_id"; ?></h2>
 Charge for user: <? echo "$user_name" ?>
 <br>
@@ -18,4 +18,4 @@ Charge for user: <? echo "$user_name" ?>
 <input id="delete-button" type="button" value="Delete" />
 
 <script type="text/javascript" src="/assets/js/charges/edit.js?bust=<? echo $cache_version; ?>"></script>
-<? require_once(__DIR__ . '/../shared/footer.php'); ?>
+<? require_once "template/shared/footer.php"; ?>

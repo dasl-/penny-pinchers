@@ -6,7 +6,7 @@ class Orm_ManagedQuery {
     public $statement;
 
     /**
-     * One of the Finder constants, i.e. Finder::RETURN_MANY
+     * One of the Finder constants, i.e. Finder_Base::RETURN_MANY
      * @var string
      */
     public $results_type;

@@ -1,4 +1,4 @@
-<? require_once(__DIR__ . '/../shared/header.php'); ?>
+<? require_once "template/shared/header.php"; ?>
 
     <form>
         <center>
@@ -17,4 +17,4 @@
     </form>
 
 <script type="text/javascript" src="/assets/js/charges/new.js?bust=<? echo $cache_version; ?>"></script>
-<? require_once(__DIR__ . '/../shared/footer.php'); ?>
+<? require_once "template/shared/footer.php"; ?>

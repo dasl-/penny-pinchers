@@ -1,6 +1,6 @@
 <?
 
-class Controller_User_New extends Controller {
+class Controller_User_New extends Controller_Base {
 
     protected function handleRequestInternal() {
         $this->render("users/new");

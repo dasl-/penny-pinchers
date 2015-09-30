@@ -1,6 +1,6 @@
 <?
 
-class Controller_Charge_Edit extends Controller {
+class Controller_Charge_Edit extends Controller_Base {
 
     /** @var Model_Charge */
     private $charge;
@@ -8,8 +8,7 @@ class Controller_Charge_Edit extends Controller {
     public function __construct() {
         parent::__construct();
         $charge_id = (int) trim($this->request->getGet("charge_id"));
-        var_dump($charge_id);
-        $this->charge = Model::getFinder("Charge")->findRecord($charge_id);
+        $this->charge = Finder_Charge::getFinder()->findRecord($charge_id);
         if (!$this->charge) {
             throw new RuntimeException("Unable to find charge: $charge_id");
         }
@@ -17,7 +16,7 @@ class Controller_Charge_Edit extends Controller {
 
     protected function handleRequestInternal() {
         $this->assignJs("charge_id", $this->charge->charge_id);
-        $user = Model::getFinder('User')->findRecord($this->charge->user_id);
+        $user = Finder_User::getFinder()->findRecord($this->charge->user_id);
         $this->assign("user_name", $user->user_name);
         $this->assign("charge", $this->charge);
         $this->render("charges/edit");

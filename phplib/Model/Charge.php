@@ -1,6 +1,6 @@
-<?
+<?php
 
-class Model_Charge extends Model {
+class Model_Charge extends Model_Base {
 
     /** @var string the name of the table */
     const TABLE_NAME = "charges";
@@ -25,11 +25,9 @@ class Model_Charge extends Model {
     }
 }
 
-class Finder_Charge extends Finder {
+class Finder_Charge extends Finder_Base {
 
-    public function __construct() {
-        parent::__construct();
-
+    protected function registerManagedQueries() {
         $table = Model_Charge::TABLE_NAME;
         $query = "SELECT * FROM $table WHERE user_id = :user_id";
         $this->registerManagedQuery("findByUserId", $query, null, self::RETURN_MANY);

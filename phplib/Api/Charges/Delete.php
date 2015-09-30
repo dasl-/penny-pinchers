@@ -7,7 +7,7 @@ class Api_Charges_Delete extends Api_Endpoint {
      */
     protected function handleRequestInternal() {
         $charge_id = $this->request->getPost("charge_id");
-        Model::getFinder('Charge')->delete($charge_id);
+        Finder_Charge::getFinder()->delete($charge_id);
 
         return ['success' => true];
     }

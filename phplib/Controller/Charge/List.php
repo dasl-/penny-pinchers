@@ -1,6 +1,6 @@
 <?
 
-class Controller_Charge_List extends Controller {
+class Controller_Charge_List extends Controller_Base {
 
     /** @var Model_User */
     private $user;
@@ -8,7 +8,7 @@ class Controller_Charge_List extends Controller {
     public function __construct() {
         parent::__construct();
         $user_name_or_id = trim($this->request->getGet("user_name_or_id"));
-        $this->user = Model::getFinder("User")->findByUserNameOrId($user_name_or_id);
+        $this->user = Finder_User::getFinder()->findByUserNameOrId($user_name_or_id);
         if (!$this->user) {
             throw new RuntimeException("Unable to find user by name or id: $user_name_or_id");
         }
@@ -16,7 +16,7 @@ class Controller_Charge_List extends Controller {
 
     protected function handleRequestInternal() {
         $this->assignJs("user_id", $this->user->user_id);
-        $charges = Model::getFinder('Charge')->findByUserId($this->user->user_id);
+        $charges = Finder_Charge::getFinder()->findByUserId($this->user->user_id);
         $this->assign("user_name", $this->user->user_name);
         $this->assign("charges", $charges);
         $this->render("charges/list");

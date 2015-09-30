@@ -1,9 +1,9 @@
-<?
+<?php
 
 /**
  * Base class that the ORM classes extend
  */
-class Model {
+abstract class Model_Base {
 
     const FIELD_INT = 'int';
     const FIELD_STRING = 'string';
@@ -16,29 +16,11 @@ class Model {
     /** @var string the column name of the pk. subclasses should override this. */
     const PRIMARY_KEY = "override me in subclasses";
 
-    /** @var Finder, singleton instances */
-    private static $finder = [];
-
     private $fields = [];
     private $dirty_fields = [];
 
     /** @var boolean determines if ->store() should do an update or an insert */
     public $is_new = true;
-
-    /**
-     * Maintains singleton instance
-     * @todo : this would be nicer using the static keyword. Call ::getFinder on the specific model
-     *       class you need the finder for. Could make the same change in Etsyweb?
-     * @param  string $model
-     * @return Finder
-     */
-    public static function getFinder($model) {
-        if (!isset(self::$finder[$model])) {
-            $finder_class = "Finder_$model";
-            self::$finder[$model] = new $finder_class();
-        }
-        return self::$finder[$model];
-    }
 
     public final function __construct() {
         if (self::TABLE_NAME === static::TABLE_NAME) {
@@ -93,6 +75,7 @@ class Model {
     public function store() {
         $model_class = get_class($this);
         $model_name = substr($model_class, 6);
+        $finder_class = "Finder_$model_name";
 
         $pk = static::PRIMARY_KEY;
         $table = static::TABLE_NAME;
@@ -123,8 +106,8 @@ class Model {
             $update_clause = rtrim($update_clause, ",");
             $query = "UPDATE $table SET $update_clause WHERE $pk = :$pk";
 
-            $finder = Model::getFinder($model_name);
-            $finder->maybeRegisterManagedQuery($query_name, $query, [], Finder::RETURN_NONE);
+            $finder = $finder_class::getFinder();
+            $finder->maybeRegisterManagedQuery($query_name, $query, [], Finder_Base::RETURN_NONE);
             $finder->doManagedQuery($query_name, $update_values);
         } else {
             // we are doing an insert
@@ -146,9 +129,9 @@ class Model {
                 }
             }
 
-            Model::getFinder($model_name)->doManagedQuery("insertRecord", $params);
+            $finder_class::getFinder()->doManagedQuery("insertRecord", $params);
 
-            $last_insert_id = Db::getPdo()->lastInsertId();
+            $last_insert_id = Orm_Db::getPdo()->lastInsertId();
             $this->$pk = $last_insert_id;
         }
 
@@ -173,7 +156,7 @@ class Model {
 /**
  * Base class that the Finder classes extend
  */
-class Finder {
+abstract class Finder_Base {
 
     const RETURN_MANY = 'return_many';
     const RETURN_SINGLE = 'return_single';
@@ -192,12 +175,50 @@ class Finder {
     /** @var Orm_ManagedQuery[] */
     private $managed_queries = [];
 
-    public function __construct() {
+    /** @var Finder_Base[], singleton instances */
+    private static $finders = [];
+
+    private final function __construct() {
         $query = $this->getFindRecordSql();
         $this->registerManagedQuery("findRecord", $query, null, self::RETURN_SINGLE);
 
         $insert_query = $this->getInsertSql();
         $this->registerManagedQuery("insertRecord", $insert_query, null, self::RETURN_NONE);
+
+        $this->registerManagedQueries();
+    }
+
+    /**
+     * Maintains singleton instance
+     * Example, to get the User finder, you could call this in one of three ways:
+     *
+     *    $finder = Finder_User::getFinder();
+     *    $finder = Finder_Base::getFinder("User");
+     *    $finder = Finder_Base::getFinder("Finder_User");
+     *
+     * @param string $class_name The class name of the finder you want to get.
+     * @return Finder_Base
+     */
+    public static function getFinder($class_name = null) {
+        if ($class_name) {
+            if (!String_Util::startsWith("Finder_", $class_name)) {
+                $class_name = "Finder_$class_name";
+            }
+        } else {
+            $class_name = get_called_class();
+        }
+        if (!isset(self::$finders[$class_name])) {
+            self::$finders[$class_name] = new $class_name();
+        }
+        return self::$finders[$class_name];
+    }
+
+    /**
+     * Subclasses may override this to register their queries.
+     * @return
+     */
+    protected function registerManagedQueries() {
+
     }
 
     public function getFindRecordSql() {
@@ -291,7 +312,7 @@ class Finder {
         // automatically set the update_date for any UPDATE queries
         $query = preg_replace(self::SQL_UPDATE_STATEMENT_REGEX, '$0update_date = :update_date, ', $query);
 
-        $pdo = Db::getPdo();
+        $pdo = Orm_Db::getPdo();
 
         $managed_query->statement = $pdo->prepare($query);
         if ($managed_query->statement === false) {
@@ -373,14 +394,14 @@ class Finder {
 
         foreach ($model_type_map as $field_name => $field_type) {
             switch ($field_type) {
-                case Model::FIELD_INT:
-                case Model::FIELD_EPOCH:
+                case Model_Base::FIELD_INT:
+                case Model_Base::FIELD_EPOCH:
                     $model->$field_name = (int) $result[$field_name];
                     break;
-                case Model::FIELD_BOOLEAN:
+                case Model_Base::FIELD_BOOLEAN:
                     $model->$field_name = (boolean) $result[$field_name];
                     break;
-                case Model::FIELD_STRING:
+                case Model_Base::FIELD_STRING:
                     $model->$field_name = (string) Sanitize::escape($result[$field_name]);
                     break;
                 default:

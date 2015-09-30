@@ -1,6 +1,6 @@
 <?
 
-class Controller_Charge_New extends Controller {
+class Controller_Charge_New extends Controller_Base {
 
     /** @var Model_User */
     private $user;
@@ -8,7 +8,7 @@ class Controller_Charge_New extends Controller {
     public function __construct() {
         parent::__construct();
         $user_name_or_id = trim($this->request->getGet("user_name_or_id"));
-        $this->user = Model::getFinder("User")->findByUserNameOrId($user_name_or_id);
+        $this->user = Finder_User::getFinder()->findByUserNameOrId($user_name_or_id);
         if (!$this->user) {
             throw new RuntimeException("Unable to find user by name or id: $user_name_or_id");
         }

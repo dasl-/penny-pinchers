@@ -3,7 +3,7 @@
 /**
  * Controllers for rendering html should extend this.
  */
-abstract class Controller {
+abstract class Controller_Base {
 
     /** @var Http_Request */
     protected $request;
@@ -74,7 +74,7 @@ abstract class Controller {
         }
 
         $js_data = $this->js_data;
-        require_once(__DIR__ . "/../template/" . $template . ".php");
+        require_once "template/" . $template . ".php";
         exit;
     }
 

@@ -1,3 +1,4 @@
+<? require __DIR__ . "/../../phplib/bootstrap.php"; ?>
 <br>
 <center>Page not found :'(</center>
 <br><br><br>

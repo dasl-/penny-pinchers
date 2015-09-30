@@ -1,6 +1,6 @@
 <?
 
-class Model_User extends Model {
+class Model_User extends Model_Base {
 
     /** @var string the name of the table */
     const TABLE_NAME = "users";
@@ -22,7 +22,7 @@ class Model_User extends Model {
     }
 }
 
-class Finder_User extends Finder {
+class Finder_User extends Finder_Base {
 
     /** @var int Hide confessions that have more than this many complaints */
     const COMPLAINT_HIDE_THRESHOLD = 2;
@@ -36,9 +36,7 @@ class Finder_User extends Finder {
     /** @var string */
     const ORDER_BY_COMMENT_COUNT = 'comments';
 
-    public function __construct() {
-        parent::__construct();
-
+    public function registerManagedQueries() {
         $table = Model_User::TABLE_NAME;
 
         $query = "SELECT * FROM $table WHERE user_name = :user_name";
