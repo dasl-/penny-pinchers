@@ -24,23 +24,16 @@ class Model_User extends Model_Base {
 
 class Finder_User extends Finder_Base {
 
-    /** @var int Hide confessions that have more than this many complaints */
-    const COMPLAINT_HIDE_THRESHOLD = 2;
-
-    /** @var string */
-    const ORDER_BY_COMMENT_TIME = 'last_comment_date';
-
-    /** @var string */
-    const ORDER_BY_SECRET_TIME = 'create_date';
-
-    /** @var string */
-    const ORDER_BY_COMMENT_COUNT = 'comments';
+    const ORDER_BY_USER_NAME_ASC = "order_by_user_name_asc";
 
     public function registerManagedQueries() {
         $table = Model_User::TABLE_NAME;
 
         $query = "SELECT * FROM $table WHERE user_name = :user_name";
         $this->registerManagedQuery("findByUserName", $query, null, self::RETURN_SINGLE);
+
+        $query = "SELECT * FROM $table ORDER BY user_name ASC";
+        $this->registerManagedQuery("findAllOrderByUserNameAsc", $query, null, self::RETURN_MANY);
     }
 
     /**
@@ -57,6 +50,15 @@ class Finder_User extends Finder_Base {
             $user = $this->findRecord($user_name_or_id);
         }
         return $user;
+    }
+
+    public function findAll($order_by = self::ORDER_BY_USER_NAME_ASC) {
+        switch ($order_by) {
+            default:
+                $query = "findAllOrderByUserNameAsc";
+                break;
+        }
+        return $this->doManagedQuery($query);
     }
 
 }

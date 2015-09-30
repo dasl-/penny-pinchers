@@ -16,5 +16,5 @@
         </center>
     </form>
 
-<script type="text/javascript" src="/assets/js/charges/new.js?bust=<? echo $cache_version; ?>"></script>
+<script type="text/javascript" src="/assets/js/charges/new.js?bust=<?= $cache_version ?>"></script>
 <? require_once "template/shared/footer.php"; ?>

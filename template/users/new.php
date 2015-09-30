@@ -14,5 +14,5 @@
         </center>
     </form>
 
-<script type="text/javascript" src="/assets/js/users/new.js?bust=<? echo $cache_version; ?>"></script>
+<script type="text/javascript" src="/assets/js/users/new.js?bust=<?= $cache_version ?>"></script>
 <? require_once "template/shared/footer.php"; ?>
