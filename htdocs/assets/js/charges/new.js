@@ -25,7 +25,8 @@
             var data = {
                 user_id: global_data.user_id,
                 amount: $.trim(this.$amount.val()),
-                description: $.trim(this.$description.val())
+                description: $.trim(this.$description.val()),
+                charge_date: $('input[name=charge-date]:checked', 'form#new-charge').val()
             };
             $.post(
                 "/api/v1/charges/new",

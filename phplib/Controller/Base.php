@@ -74,6 +74,7 @@ abstract class Controller_Base {
         }
 
         $js_data = $this->js_data;
+        require_once "template/functions.php";
         require_once "template/" . $template . ".php";
         exit;
     }

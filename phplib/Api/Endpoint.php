@@ -21,7 +21,16 @@ abstract class Api_Endpoint {
     }
 
     public function handleRequest() {
-        $response = $this->handleRequestInternal();
+        try {
+            $response = $this->handleRequestInternal();
+        } catch (Exception $e) {
+            $this->response->setStatusCode(Http::STATUS_CODE_INTERNAL_SERVER_ERROR);
+            $response = [
+                "success" => false,
+                "exception" => "$e",
+            ];
+        }
+
         $this->renderResponse($response);
     }
 

@@ -16,6 +16,12 @@ We're about to begin Austere October!
 	?>
 </table>
 
+<?
+	if (empty($users)) {
+		echo "<p>No users have registered yet.</p>";
+	}
+?>
+
 <h2>Useful Links</h2>
 <ul>
 	<li>

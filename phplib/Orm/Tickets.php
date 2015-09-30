@@ -34,7 +34,7 @@ class Orm_Tickets {
      */
     private static function getPreparedPdo() {
         if (self::$tickets_pdo === null) {
-            self::$tickets_pdo = Db::getPdo();
+            self::$tickets_pdo = Orm_Db::getPdo();
             self::preparePdo();
         }
 

@@ -1,6 +1,6 @@
 <? require_once "template/shared/header.php"; ?>
 
-    <form>
+    <form id="new-charge">
         <center>
             Amount:&nbsp;&nbsp;<input id="amount" type="text"></input>
             <span class='empty-amount error hidden'>
@@ -11,6 +11,10 @@
             <span class='empty-description error hidden'>
                 Please enter a description.
             </span>
+            <br>
+            Date: &nbsp;&nbsp;
+            <input type="radio" name="charge-date" id="today" value="today" checked><label for="today">Today</label>
+            <input type="radio" name="charge-date" id="yesterday" value="yesterday"><label for="yesterday">Yesterday</label>
             <br>
             <input id="submit-button" type="submit" value="Submit" />
         </center>

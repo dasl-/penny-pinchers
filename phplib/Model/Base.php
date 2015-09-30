@@ -162,6 +162,7 @@ abstract class Finder_Base {
     const RETURN_SINGLE = 'return_single';
     const RETURN_COUNT = 'return_count';
     const RETURN_NONE = 'return_none';
+    const RETURN_ARRAY = 'return_array'; // for ad-hoc array results that will not be mapped to a model instance.
 
     const QUERY_LIMIT = 'query_limit';
     const QUERY_OFFSET = 'query_offset';
@@ -373,6 +374,8 @@ abstract class Finder_Base {
                 return (int) $results;
             case self::RETURN_NONE:
                 return;
+            case self::RETURN_ARRAY:
+                return (array) $statement->fetchAll();
             default:
                 throw new RuntimeException("Unsupported results_type: $results_type");
         }
