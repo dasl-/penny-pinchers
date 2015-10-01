@@ -2,6 +2,8 @@
 
 class Sanitize {
 
+    public static $sanitized_chars = ['&', '<', '>', "'", '"'];
+
     /**
      * @param  string $string
      * @return string

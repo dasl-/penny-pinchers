@@ -17,8 +17,9 @@
 
         handleSubmit: function(event) {
             event.preventDefault();
-
+            this.$submit.prop("disabled", true);
             if (!this.isValid()) {
+                this.$submit.prop("disabled", false);
                 return;
             }
 
@@ -31,20 +32,20 @@
             $.post(
                 "/api/v1/charges/new",
                 data,
-                function(response) {
-                    var success = response.success || false;
-                    if (success) {
-                        alert("succes!");
-                        // $('.default-content').fadeOut(300, function() { $('.success-content').fadeIn(300); });
-                    }
-                },
+                $.proxy(function(response) {
+                    this.doSuccess(response);
+                }, this),
                 "json"
-            )
-            .fail(function() {
-                // $('.error').hide();
-                // $('.unknown-error').show();
-                alert("failure.2")
-            });
+            ).fail($.proxy(function(response) {
+                this.doFailure(response);
+            }, this));
+
+            window.setTimeout(
+                $.proxy(function() {
+                    this.$submit.prop("disabled", false);
+                }, this),
+                2000
+            );
         },
 
         isValid: function() {
@@ -64,7 +65,24 @@
             }
 
             return true;
+        },
+
+        doSuccess: function(response) {
+            $(".new-charge-success .success-amount").text(response.amount_string);
+            FlashMessage.showSuccessMessage("new-charge-success");
+            this.$amount.val("");
+            this.$description.val("");
+        },
+
+        doFailure: function(response) {
+            if (response.responseJSON.error_message) {
+                $(".flash-message-content.failure-empty").text(response.responseJSON.error_message);
+                FlashMessage.showFailureMessage("failure-empty");
+            } else {
+                FlashMessage.showFailureMessage("failure-default");
+            }
         }
+
     };
 
     NewChargePage.init();

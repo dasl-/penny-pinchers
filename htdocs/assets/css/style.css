@@ -1,3 +1,6 @@
+* {
+    font-family: 'Inconsolata', 'Arial';
+}
 .hidden {
     display: none;
 }
@@ -9,8 +12,28 @@
 table {
     border-collapse: collapse;
 }
-
 td, th {
     border: 1px solid black;
     padding:2px 4px;
+}
+#flash-message-container {
+    z-index: 5;
+    width:80%;
+    margin: 0 auto;
+    padding:20px;
+    position:absolute;
+    top: 20px;
+    left:0;
+    right:0;
+    border-radius: 25px;
+    display:none;
+}
+.flash-message-content {
+    display:none;
+}
+#flash-message-container.success {
+    background-color: #98FB98;
+}
+#flash-message-container.failure {
+    background-color: #FA8072;
 }

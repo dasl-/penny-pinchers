@@ -1,6 +1,6 @@
 <? require_once "template/shared/header.php"; ?>
 <h2>Welcome</h2>
-We're about to begin Austere October!
+Auster October: Day 1.
 
 <h2>Users</h2>
 <table>
@@ -29,5 +29,9 @@ We're about to begin Austere October!
 	</li>
 </ul>
 
+<div class="flash-message-content test">
+	test flash
+</div>
+<? require_once "template/shared/flash_message.php"; ?>
 <script type="text/javascript" src="/assets/js/homepage/homepage.js?bust=<?= $cache_version ?>"></script>
 <? require_once "template/shared/footer.php"; ?>

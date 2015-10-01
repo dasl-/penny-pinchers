@@ -6,7 +6,13 @@ class Api_Charges_New extends Api_Endpoint {
      * @return array An associative array that will be turned into json as the response.
      */
     protected function handleRequestInternal() {
-        $amount = Money::fromFloat($this->request->getPost("amount"))->getAmountAsInt();
+        $amount = Money::fromFloat($this->request->getPost("amount"))->toInt();
+        if ($amount <= 0) {
+            $this->response->setStatusCode(Http::STATUS_CODE_BAD_REQUEST);
+            return [
+                "error_message" => "Charge cannot be less than or equal to zero.",
+            ];
+        }
         $user_id = $this->request->getPost("user_id");
         $description = $this->request->getPost("description");
 
@@ -17,7 +23,9 @@ class Api_Charges_New extends Api_Endpoint {
         $charge->charge_date = $this->getChargeDate();
         $charge->store();
 
-        return ['success' => true];
+        return [
+            'amount_string' => Money::fromInt($charge->amount)->toString(),
+        ];
     }
 
     /**

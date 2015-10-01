@@ -14,5 +14,12 @@
         </center>
     </form>
 
+<div class="flash-message-content user-registration-success">
+    Your user has been successfully registered! Redirecting to your new profile...
+    <br><br>
+    <i>After a certain point, money is meaningless, it ceases to be the goal, the game is what counts.</i>
+</div>
+<? require_once "template/shared/flash_message.php"; ?>
+
 <script type="text/javascript" src="/assets/js/users/new.js?bust=<?= $cache_version ?>"></script>
 <? require_once "template/shared/footer.php"; ?>

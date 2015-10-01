@@ -38,23 +38,23 @@ class Money {
     /**
      * @return int
      */
-    public function getAmountAsInt() {
+    public function toInt() {
         return $this->int_amount;
     }
 
     /**
      * @return float
      */
-    public function getAmountAsFloat() {
+    public function toFloat() {
         $float_amount = round($this->int_amount / 100, 2);
         return $float_amount;
     }
 
     /**
-     * @return float
+     * @return string
      */
-    public function getAmountAsString() {
-        $float_amount = $this->getAmountAsFloat();
+    public function toString() {
+        $float_amount = $this->toFloat();
         return '$' . number_format($float_amount, 2, ".", ",");
     }
 

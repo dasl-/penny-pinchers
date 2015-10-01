@@ -16,5 +16,5 @@ function epochToString($epoch_date, $format = "n/j/y g:i a") {
  * @return string
  */
 function formatMoney($int_amount) {
-	return Money::fromInt($int_amount)->getAmountAsString();
+	return Money::fromInt($int_amount)->toString();
 }

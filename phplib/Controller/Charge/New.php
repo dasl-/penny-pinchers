@@ -16,6 +16,8 @@ class Controller_Charge_New extends Controller_Base {
 
     protected function handleRequestInternal() {
         $this->assignJs("user_id", $this->user->user_id);
+        $this->assignJs("user_name", $this->user->user_name);
+        $this->assign("user_name", $this->user->user_name);
         $this->render("charges/new");
     }
 

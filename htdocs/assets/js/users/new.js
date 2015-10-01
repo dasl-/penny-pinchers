@@ -27,20 +27,13 @@
             $.post(
                 "/api/v1/users/new",
                 data,
-                function(response) {
-                    var success = response.success || false;
-                    if (success) {
-                        alert("succes!");
-                        // $('.default-content').fadeOut(300, function() { $('.success-content').fadeIn(300); });
-                    }
-                },
+                $.proxy(function(response) {
+                    this.doSuccess(response);
+                }, this),
                 "json"
-            )
-            .fail(function() {
-                // $('.error').hide();
-                // $('.unknown-error').show();
-                alert("failure.2")
-            });
+            ).fail($.proxy(function(response) {
+                this.doFailure(response);
+            }, this));
         },
 
         isValid: function() {
@@ -58,7 +51,29 @@
             }
 
             return true;
+        },
+
+        doSuccess: function(response) {
+            FlashMessage.showSuccessMessage("user-registration-success");
+
+            // Redirect to user's list of charges page.
+            window.setTimeout(
+                $.proxy(function() {
+                    window.location.href = "/users/" + response.user_name + "/charges";
+                }, this),
+                5000
+            );
+        },
+
+        doFailure: function(response) {
+            if (response.responseJSON.error_message) {
+                $(".flash-message-content.failure-empty").text(response.responseJSON.error_message);
+                FlashMessage.showFailureMessage("failure-empty");
+            } else {
+                FlashMessage.showFailureMessage("failure-default");
+            }
         }
+
     };
 
     NewUserPage.init();

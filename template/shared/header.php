@@ -5,7 +5,6 @@
         <meta name="robots" content="noindex, nofollow">
         <title><?= "$page_title" ?></title>
         <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?bust=<?= $cache_version ?>" />
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script type="text/javascript">
             <?
                 echo "global_data = {};\n";
@@ -14,7 +13,13 @@
                 }
             ?>
         </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
     </head>
 
     <body>
+        <div id="header">
+            <a href="/" title="home"><img src="/assets/img/penny-logo.gif" alt="¯\_(ツ)_/¯"></a>
+        </div>
+
         <div id="content">
