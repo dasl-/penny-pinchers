@@ -1,6 +1,6 @@
 <? require_once "template/shared/header.php"; ?>
 <h2>Welcome</h2>
-Auster October: Day 1.
+Austere October: The Bad Beginning.
 
 <h2>Users</h2>
 <table>

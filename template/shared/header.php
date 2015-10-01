@@ -19,7 +19,7 @@
 
     <body>
         <div id="header">
-            <a href="/" title="home"><img src="/assets/img/penny-logo.gif" alt="¯\_(ツ)_/¯"></a>
+            <a href="/" title="home"><img src="/assets/img/penny-logo.gif" alt="¯\_(ツ)_/¯"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/dasl-/penny-pinchers/">social component</a>
         </div>
 
         <div id="content">
