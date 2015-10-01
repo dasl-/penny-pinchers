@@ -28,6 +28,10 @@ Auster October: Day 1.
 		<a href="/users/new">Register new user</a>
 	</li>
 </ul>
+<h2>Wish List</h2>
+<ul>
+	<li>Mobile UI</li>
+</ul>
 
 <div class="flash-message-content test">
 	test flash
