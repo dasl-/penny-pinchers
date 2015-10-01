@@ -30,7 +30,7 @@ Auster October: Day 1.
 </ul>
 <h2>Wish List</h2>
 <ul>
-	<li>Mobile UI</li>
+	<li>Mobile UI that doesnt suck</li>
 </ul>
 
 <div class="flash-message-content test">
