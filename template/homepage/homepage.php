@@ -6,7 +6,7 @@ Austere October: The Bad Beginning.
 <table>
     <tr>
         <th>User Name</th>
-        <th>Total Charges</th>
+        <th><abbr title="per person (divide by two for jelara)">Total Charges</abbr></th>
         <th>Actions</th>
     </tr>
     <?

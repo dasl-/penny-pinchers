@@ -4,7 +4,7 @@ class Controller_Homepage extends Controller_Base {
 
     protected function handleRequestInternal() {
         $users = Finder_User::getFinder()->findAll();
-        $total_charges_by_user_id = Finder_Charge::getFinder()->findTotalChargesByUserId();
+        $total_charges_by_user_id = Finder_Charge::getFinder()->findTotalChargesPerPersonByUserId();
         $this->assign("total_charges_by_user_id", $total_charges_by_user_id);
         $this->assign("users", $users);
         $this->assignRecentActivity();

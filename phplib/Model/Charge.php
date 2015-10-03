@@ -69,12 +69,16 @@ class Finder_Charge extends Finder_Base {
      * Find sum of all charges grouped by user_id
      * @return array
      */
-    public function findTotalChargesByUserId() {
+    public function findTotalChargesPerPersonByUserId() {
         $charges = $this->doManagedQuery("findTotalChargesByUserId");
         $total_charges_by_user_id = [];
         foreach ($charges as $user_info) {
             $user_id = $user_info["user_id"];
-            $total_charges = $user_info["total_charges"];
+            if ($user_id === 107) {
+                $total_charges = $user_info["total_charges"] / 2; // Jamie and Elara
+            } else {
+                $total_charges = $user_info["total_charges"];
+            }
             $total_charges_by_user_id[$user_id] = $total_charges;
         }
         return $total_charges_by_user_id;
