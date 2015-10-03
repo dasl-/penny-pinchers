@@ -74,7 +74,7 @@ class Finder_Charge extends Finder_Base {
         $total_charges_by_user_id = [];
         foreach ($charges as $user_info) {
             $user_id = $user_info["user_id"];
-            if ($user_id === 107) {
+            if ($user_id == 107) {
                 $total_charges = $user_info["total_charges"] / 2; // Jamie and Elara
             } else {
                 $total_charges = $user_info["total_charges"];
