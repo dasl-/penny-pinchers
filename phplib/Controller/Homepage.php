@@ -16,11 +16,11 @@ class Controller_Homepage extends Controller_Base {
     }
 
     private function assignRecentActivity() {
-        $recent_charges = Finder_Charge::getFinder()->findRecentCharges();
+        $recent_charges = Finder_Charge::getFinder()->findRecentlyAddedCharges();
         $recent_activities = [];
         foreach ($recent_charges as $recent_charge) {
             $recent_activity = [
-                "date" => $recent_charge->charge_date,
+                "date" => $recent_charge->create_date,
                 "user_name" => Finder_User::getFinder()->findRecord($recent_charge->user_id)->user_name,
                 "description" => $recent_charge->description,
                 "amount" => $recent_charge->amount,

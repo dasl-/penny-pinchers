@@ -38,8 +38,8 @@ class Finder_Charge extends Finder_Base {
         $query = "SELECT user_id, sum(amount) as total_charges FROM $table GROUP BY user_id";
         $this->registerManagedQuery("findTotalChargesByUserId", $query, null, self::RETURN_ARRAY);
 
-        $query = "SELECT * FROM $table ORDER BY charge_date DESC LIMIT 10";
-        $this->registerManagedQuery("findRecentCharges", $query);
+        $query = "SELECT * FROM $table ORDER BY create_date DESC LIMIT 10";
+        $this->registerManagedQuery("findRecentlyAddedCharges", $query);
     }
 
     /**
@@ -84,8 +84,8 @@ class Finder_Charge extends Finder_Base {
         return $total_charges_by_user_id;
     }
 
-    public function findRecentCharges() {
-        return $this->doManagedQuery("findRecentCharges");
+    public function findRecentlyAddedCharges() {
+        return $this->doManagedQuery("findRecentlyAddedCharges");
     }
 
 }
