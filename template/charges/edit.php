@@ -9,7 +9,7 @@ Charge for user: <?= "$user_name" ?>
         <th>Amount</th>
     </tr>
     <tr>
-        <td><?= epochToString($charge->charge_date) ?></td>
+        <td><?= formatDate($charge->charge_date) ?></td>
         <td><?= $charge->description ?></td>
         <td><?= formatMoney($charge->amount) ?></td>
     </tr>

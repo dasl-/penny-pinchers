@@ -38,14 +38,10 @@
                 "json"
             ).fail($.proxy(function(response) {
                 this.doFailure(response);
+            }, this)
+            ).always($.proxy(function(response) {
+                this.$submit.prop("disabled", false);
             }, this));
-
-            window.setTimeout(
-                $.proxy(function() {
-                    this.$submit.prop("disabled", false);
-                }, this),
-                2000
-            );
         },
 
         isValid: function() {
