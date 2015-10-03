@@ -25,9 +25,7 @@ Austere October: The Bad Beginning.
 <table>
     <tr>
         <th>When</th>
-        <th>User</th>
-        <th>Description</th>
-        <th>Amount</th>
+        <th>What</th>
     </tr>
     <?
         foreach ($recent_activities as $recent_activity) {
