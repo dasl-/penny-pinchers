@@ -74,12 +74,13 @@ class Authorizer {
             return self::$session;
         }
 
-        if (!isset($_COOKIE['session'])) {
+        $env_string = Env::getEnvString();
+        if (!isset($_COOKIE["session_{$env_string}"])) {
             self::$session = null;
             return self::$session;
         }
 
-        $authentication = json_decode($_COOKIE['session'], true);
+        $authentication = json_decode($_COOKIE["session_{$env_string}"], true);
         $user_id = isset($authentication["user_id"]) ? $authentication["user_id"] : "";
         $session_string = isset($authentication["session_string"]) ? $authentication["session_string"] : "";
         self::$session = Finder_Session::getFinder()->findByUserIdAndSessionString($user_id, $session_string);
@@ -87,11 +88,13 @@ class Authorizer {
     }
 
     private static function setSessionCookie($value, $expire) {
-        // Make the cookie specific to the subdomain.
-        $domain = str_replace(['www.', '/'], '', $_SERVER['HTTP_HOST']);
+        $domain = Env::getDomain();
+
+        // Make the cookie specific to the subdomain. No collisions between dev/prod.
+        $env_string = Env::getEnvString(); // Cookie names with dots "." in them are not supported.
 
         // TODO: use SSL here
-        $success = setcookie("session", $value, $expire, "/", $domain);
+        $success = setcookie("session_{$env_string}", $value, $expire, "/", $domain);
         if (!$success) {
             throw new RuntimeException("Unable to set session cookie.");
         }
