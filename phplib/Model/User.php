@@ -16,6 +16,7 @@ class Model_User extends Model_Base {
         return [
             'user_id' => self::FIELD_INT,
             'user_name' => self::FIELD_STRING,
+            'password_hash' => self::FIELD_STRING,
             'create_date' => self::FIELD_EPOCH,
             'update_date' => self::FIELD_EPOCH,
         ];
@@ -41,14 +42,23 @@ class Finder_User extends Finder_Base {
      * @return Model_User
      */
     public function findByUserNameOrId($user_name_or_id) {
-        $params = [
-            ':user_name' => $user_name_or_id,
-        ];
-
-        $user = $this->doManagedQuery("findByUserName", $params);
+        $user = $this->findByUserName($user_name_or_id);
         if (!$user) {
             $user = $this->findRecord($user_name_or_id);
         }
+        return $user;
+    }
+
+    /**
+     * @param  string $user_name
+     * @return Model_User
+     */
+    public function findByUserName($user_name) {
+        $params = [
+            ':user_name' => $user_name,
+        ];
+
+        $user = $this->doManagedQuery("findByUserName", $params);
         return $user;
     }
 

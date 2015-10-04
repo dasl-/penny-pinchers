@@ -5,8 +5,10 @@ ErrorDocument 404 /html/not_found.php
 
 # HTML: endpoints that return html for webrequests.
 RewriteRule ^users/new/?$                   /html/users/new.php                              [NC,QSA,L]
-RewriteRule ^users/([^/]*)/charges/new/?$   /html/charges/new.php?user_name_or_id=$1         [NC,QSA,L]
+RewriteRule ^users/logout/?$                /html/users/logout.php                           [NC,QSA,L]
+RewriteRule ^users/([^/]*)/?$               /html/users/profile.php?user_name_or_id=$1       [NC,QSA,L]
 RewriteRule ^users/([^/]*)/charges/?$       /html/charges/list.php?user_name_or_id=$1        [NC,QSA,L]
+RewriteRule ^charges/new/?$                 /html/charges/new.php                            [NC,QSA,L]
 RewriteRule ^charges/([^/]*)/?$             /html/charges/edit.php?charge_id=$1              [NC,QSA,L]
 RewriteRule ^$                              /html/homepage.php                               [NC,QSA,L]
 
@@ -19,6 +21,8 @@ RewriteRule ^.$                             /html/not_found.php                 
 
 # API: endpoints that return json.
 RewriteRule ^api/v1/users/new/?$                /api/users/new.php                           [NC,QSA,L]
+RewriteRule ^api/v1/users/login/?$              /api/users/login.php                         [NC,QSA,L]
+RewriteRule ^api/v1/users/update/?$             /api/users/update.php                        [NC,QSA,L]
 RewriteRule ^api/v1/charges/new/?$              /api/charges/new.php                         [NC,QSA,L]
 RewriteRule ^api/v1/charges/([^/]*)/delete/?$   /api/charges/delete.php                      [NC,QSA,L]
 RewriteRule ^api/v1/thoughts/new/?$             /api/thoughts/new.php                        [NC,QSA,L]

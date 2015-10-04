@@ -17,6 +17,7 @@
             event.preventDefault();
 
             var data = {
+                user_id: global_data.user_id,
                 charge_id: global_data.charge_id
             };
             $.post(

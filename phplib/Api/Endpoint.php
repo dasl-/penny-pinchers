@@ -20,8 +20,11 @@ abstract class Api_Endpoint {
         $this->method = $this->getMethod();
     }
 
-    public function handleRequest() {
+    final public function handleRequest() {
         try {
+            if ($this->doesEndpointRequireAuthentication()) {
+                $this->authorizeRequest();
+            }
             $response = $this->handleRequestInternal();
         } catch (Exception $e) {
             $this->response->setStatusCode(Http::STATUS_CODE_INTERNAL_SERVER_ERROR);
@@ -39,6 +42,13 @@ abstract class Api_Endpoint {
      * @return array An associative array that will be turned into json as the response.
      */
     protected abstract function handleRequestInternal();
+
+    /**
+     * @return boolean
+     */
+    protected function doesEndpointRequireAuthentication() {
+        return true;
+    }
 
     /**
      * get the http method of the request
@@ -60,6 +70,22 @@ abstract class Api_Endpoint {
 
     private function renderResponse(array $response) {
         $this->response->setResponse($response);
+    }
+
+    private function authorizeRequest() {
+        $user_id = $this->request->getPost("user_id");
+        $user = Finder_User::getFinder()->findRecord($user_id);
+        if (!$user) {
+            throw new RuntimeException("Unable to find user for authorization.");
+        }
+
+        $logged_in_user = Authorizer::getLoggedInUser();
+        if ($user->user_id !== $logged_in_user->user_id) {
+            $this->response->setStatusCode(Http::STATUS_CODE_UNAUTHORIZED);
+            $this->renderResponse([
+                "error_message" => "You are not authorized to do this.",
+            ]);
+        }
     }
 
 }

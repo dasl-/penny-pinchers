@@ -21,7 +21,14 @@
     }
 ?>
 
-<a href="/users/<?= $user_name ?>/charges/new">Add a new charge</a>
+<?
+    if ($logged_in_user->user_id === $user_id) {
+?>
+        <a href="/charges/new">Add a new charge</a>
+<?
+    }
+?>
+
 
 <script type="text/javascript" src="/assets/js/charges/new.js?bust=<?= $cache_version ?>"></script>
 <? require_once "template/shared/footer.php"; ?>

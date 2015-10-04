@@ -130,9 +130,6 @@ abstract class Model_Base {
             }
 
             $finder_class::getFinder()->doManagedQuery("insertRecord", $params);
-
-            $last_insert_id = Orm_Db::getPdo()->lastInsertId();
-            $this->$pk = $last_insert_id;
         }
 
         $this->undirtyFields();

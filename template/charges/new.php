@@ -30,7 +30,7 @@
 
 <br>
 
-<p><a href="/users/<?= $user_name ?>/charges">View all charges for <?= $user_name ?></a></p>
+<p><a href="/users/<?= $logged_in_user->user_name ?>/charges">View all charges for <?= $logged_in_user->user_name ?></a></p>
 
 <div class="flash-message-content new-charge-success">
     Your charge for <b><span class="success-amount"></span></b> has been successfully registered!

@@ -22,6 +22,7 @@ var FlashMessage = (function($) {
             // There was a previous flash message already in progress. Cancel its fade out.
             window.clearTimeout(fade_out_id);
             $flash_message_container.removeClass(); // Remove all classes.
+            $flash_message_container.hide();
         }
 
         $flash_message_container.addClass(container_class_name);

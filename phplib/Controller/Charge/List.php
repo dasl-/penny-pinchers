@@ -16,6 +16,7 @@ class Controller_Charge_List extends Controller_Base {
 
     protected function handleRequestInternal() {
         $this->assignJs("user_id", $this->user->user_id);
+        $this->assign("user_id", $this->user->user_id);
         $charges = Finder_Charge::getFinder()->findByUserId($this->user->user_id);
         $this->assign("user_name", $this->user->user_name);
         $this->assign("charges", $charges);

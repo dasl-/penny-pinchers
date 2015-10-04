@@ -1,13 +1,12 @@
 (function($) {
-    var NewUserPage = {
+    var Login = {
 
         $user_name: $('input#user-name'),
         $password: $('input#password'),
-        $password_confirm: $('input#password-confirm'),
         $submit: $('input#submit-button'),
 
         init: function() {
-            this.bindEvents();
+        	this.bindEvents();
         },
 
         bindEvents: function() {
@@ -29,7 +28,7 @@
                 password: this.$password.val()
             };
             $.post(
-                "/api/v1/users/new",
+                "/api/v1/users/login",
                 data,
                 $.proxy(function(response) {
                     this.doSuccess(response);
@@ -46,7 +45,6 @@
         isValid: function() {
             var user_name = $.trim(this.$user_name.val());
             var password = this.$password.val();
-            var password_confirm = this.$password_confirm.val();
 
             $('.error').hide();
 
@@ -54,16 +52,8 @@
                 $('.empty-user-name').show();
                 return false;
             }
-            if ($.isNumeric(user_name)) {
-                $('.numeric-user-name').show();
-                return false;
-            }
             if (password === '') {
                 $('.empty-password').show();
-                return false;
-            }
-            if (password !== password_confirm) {
-                $('.password-match').show();
                 return false;
             }
 
@@ -71,18 +61,11 @@
         },
 
         doSuccess: function(response) {
-            FlashMessage.showSuccessMessage("user-registration-success");
+            FlashMessage.showSuccessMessage("login-success");
             this.$user_name.val("");
             this.$password.val("");
-            this.$password_confirm.val("");
 
-            // Redirect homepage.
-            window.setTimeout(
-                $.proxy(function() {
-                    window.location.href = "/";
-                }, this),
-                5000
-            );
+            document.location.reload(true);
         },
 
         doFailure: function(response) {
@@ -96,5 +79,5 @@
 
     };
 
-    NewUserPage.init();
+    Login.init();
 }(jQuery));

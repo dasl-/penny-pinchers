@@ -28,7 +28,7 @@ function timeAgo($epoch_date) {
     $delta = $now - $epoch_date;
 
     $minutes_ago = floor($delta / 60);
-    if ($minutes_ago === 0) {
+    if ($minutes_ago == 0) {
         return "Just now";
     }
     if ($minutes_ago < 60) {
