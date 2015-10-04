@@ -1,6 +1,16 @@
 <? require_once "template/shared/header.php"; ?>
 <h2>Charge #<?= "$charge->charge_id" ?></h2>
-Charge for user: <?= "$user_name" ?>
+<?
+    if ($logged_in_user->user_id === $charge->user_id) {
+?>
+        <p>Your charge</p>
+<?
+    } else {
+?>
+        <p>Charge for user: <?= "$charge_user_name" ?></p>
+<?
+    }
+?>
 <br>
 <table>
     <tr>
@@ -15,7 +25,13 @@ Charge for user: <?= "$user_name" ?>
     </tr>
 </table>
 
-<input id="delete-button" type="button" value="Delete" />
+<?
+    if ($logged_in_user->user_id === $charge->user_id) {
+?>
+        <input id="delete-button" type="button" value="Delete" />
+<?
+    }
+?>
 
 <script type="text/javascript" src="/assets/js/charges/edit.js?bust=<?= $cache_version ?>"></script>
 <? require_once "template/shared/footer.php"; ?>

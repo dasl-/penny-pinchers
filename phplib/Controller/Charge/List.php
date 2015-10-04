@@ -20,6 +20,12 @@ class Controller_Charge_List extends Controller_Base {
         $charges = Finder_Charge::getFinder()->findByUserId($this->user->user_id);
         $this->assign("user_name", $this->user->user_name);
         $this->assign("charges", $charges);
+        if ($this->logged_in_user->user_id === $this->user->user_id) {
+            $action_name = "Edit";
+        } else {
+            $action_name = "View";
+        }
+        $this->assign("action_name", $action_name);
         $this->render("charges/list");
     }
 

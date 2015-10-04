@@ -4,6 +4,7 @@
             formatMoney($total_charges_by_user_id[$user->user_id]) :
             formatMoney(0) ?></td>
     <td>
+        <a href="/users/<?= $user->user_name ?>/charges" class="action">View charges</a>
     	<?
     		if ($logged_in_user->user_id === $user->user_id) {
     	?>
@@ -11,6 +12,5 @@
         <?
         	}
         ?>
-        <a href="/users/<?= $user->user_name ?>/charges" class="action">View charges</a>
     </td>
 </tr>
