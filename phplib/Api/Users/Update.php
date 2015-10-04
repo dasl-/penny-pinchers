@@ -18,8 +18,8 @@ class Api_Users_Update extends Api_Endpoint {
 
     private function handleChangePassword() {
         $user_id = $this->request->getPost("user_id");
-        $old_password = $this->request->getPost("old_password");
-        $new_password = $this->request->getPost("new_password");
+        $old_password = $this->request->getPostRaw("old_password");
+        $new_password = $this->request->getPostRaw("new_password");
 
         if ($new_password === "") {
             $this->response->setStatusCode(Http::STATUS_CODE_BAD_REQUEST);
