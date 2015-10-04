@@ -10,6 +10,9 @@ RewriteRule ^users/([^/]*)/charges/?$       /html/charges/list.php?user_name_or_
 RewriteRule ^charges/([^/]*)/?$             /html/charges/edit.php?charge_id=$1              [NC,QSA,L]
 RewriteRule ^$                              /html/homepage.php                               [NC,QSA,L]
 
+#thoughts
+RewriteRule ^thoughts/new/?$                /html/thoughts/new.php                           [NC,QSA,L]
+
 # Treat single characters in the the URL as a special case. Not sure why this is necessary,
 # but otherwise, they'd redirect to the homepage.
 RewriteRule ^.$                             /html/not_found.php                              [R=404,NC,QSA,L]
@@ -18,3 +21,4 @@ RewriteRule ^.$                             /html/not_found.php                 
 RewriteRule ^api/v1/users/new/?$                /api/users/new.php                           [NC,QSA,L]
 RewriteRule ^api/v1/charges/new/?$              /api/charges/new.php                         [NC,QSA,L]
 RewriteRule ^api/v1/charges/([^/]*)/delete/?$   /api/charges/delete.php                      [NC,QSA,L]
+RewriteRule ^api/v1/thoughts/new/?$             /api/thoughts/new.php                        [NC,QSA,L]

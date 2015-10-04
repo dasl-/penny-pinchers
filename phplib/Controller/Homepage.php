@@ -8,6 +8,10 @@ class Controller_Homepage extends Controller_Base {
         $this->assign("total_charges_by_user_id", $total_charges_by_user_id);
         $this->assign("users", $users);
         $this->assignRecentActivity();
+
+        $thoughts = Finder_Thought::getFInder()->findRecentThoughts();
+        $this->assign("thoughts", $thoughts);
+
         $this->render("homepage/homepage");
     }
 

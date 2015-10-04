@@ -41,5 +41,18 @@ Austere October: The Bad Beginning.
     </li>
 </ul>
 
+<h2>Thoughts</h2>
+<a href="thoughts/new">New Thought</a>
+<?
+    foreach ($thoughts as $thought) {
+        require 'template/homepage/thought.php';
+    }
+?>
+
+<h2>Wish List</h2>
+<ul>
+    <li>Mobile UI that doesnt suck</li>
+</ul>
+
 <script type="text/javascript" src="/assets/js/homepage/homepage.js?bust=<?= $cache_version ?>"></script>
 <? require_once "template/shared/footer.php"; ?>
