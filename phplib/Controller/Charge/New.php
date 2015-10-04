@@ -18,6 +18,8 @@ class Controller_Charge_New extends Controller_Base {
         $this->assignJs("user_id", $this->user->user_id);
         $this->assignJs("user_name", $this->user->user_name);
         $this->assign("user_name", $this->user->user_name);
+        $this->assign("is_compact_header", true);
+        $this->assign("compact_header_title", "New Charge for {$this->user->user_name}");
         $this->render("charges/new");
     }
 

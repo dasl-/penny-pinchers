@@ -1,25 +1,28 @@
 <? require_once "template/shared/header.php"; ?>
 
-<h2>New Charge for <?= $user_name ?></h2>
-<br><br>
 <form id="new-charge">
     <center>
-        Date: &nbsp;&nbsp;
-        <input type="radio" name="charge-date" id="today" value="today" checked><label for="today">Today</label>
-        <input type="radio" name="charge-date" id="yesterday" value="yesterday"><label for="yesterday">Yesterday</label>
-        <br>
+        <div class="form-block">
+            Date: &nbsp;&nbsp;
+            <input type="radio" name="charge-date" id="today" value="today" checked><label for="today">Today</label>
+            <input type="radio" name="charge-date" id="yesterday" value="yesterday"><label for="yesterday">Yesterday</label>
+        </div>
 
-        Description:&nbsp;&nbsp;<input id="description" type="text"></input>
-        <span class='empty-description error hidden'>
-            Please enter a description.
-        </span>
-        <br>
+        <div class="form-block">
+            Description:<br>
+            <input id="description" type="text"></input>
+            <span class='empty-description error hidden'>
+                Please enter a description.
+            </span>
+        </div>
 
-        Amount:&nbsp;&nbsp;<input id="amount" type="text"></input>
-        <span class='empty-amount error hidden'>
-            Please enter a charge.
-        </span>
-        <br>
+        <div class="form-block">
+            Amount:<br>
+            <input id="amount" type="number"></input>
+            <span class='empty-amount error hidden'>
+                Please enter a charge.
+            </span>
+        </div>
 
         <input id="submit-button" type="submit" value="Submit" />
     </center>
