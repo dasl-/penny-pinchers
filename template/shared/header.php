@@ -3,7 +3,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="robots" content="noindex, nofollow">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title><?= "$page_title" ?></title>
         <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?bust=<?= $cache_version ?>" />
         <script type="text/javascript">
@@ -20,14 +19,7 @@
 
     <body>
         <div id="header">
-            <a href="/" title="home"><img src="/assets/img/penny-logo.gif" alt="¯\_(ツ)_/¯"></a>
-            <?
-                if (isset($is_compact_header) && $is_compact_header) {
-                    echo "<h3 class='compact-header'>$compact_header_title</h3>";
-                } else {
-                    echo '&nbsp;&nbsp;&nbsp;<a href="https://github.com/dasl-/penny-pinchers/">social component</a>';
-                }
-            ?>
+            <a href="/" title="home"><img src="/assets/img/penny-logo.gif" alt="¯\_(ツ)_/¯"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/dasl-/penny-pinchers/">social component</a> <a href="/users/new">Register new user</a>
         </div>
 
         <div id="content">

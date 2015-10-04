@@ -34,13 +34,6 @@ Austere October: The Bad Beginning.
     ?>
 </table>
 
-<h2>Useful Links</h2>
-<ul>
-    <li>
-        <a href="/users/new">Register new user</a>
-    </li>
-</ul>
-
 <h2>Thoughts</h2>
 <a href="thoughts/new">New Thought</a>
 <?
@@ -54,5 +47,9 @@ Austere October: The Bad Beginning.
     <li>Mobile UI that doesnt suck</li>
 </ul>
 
+<div class="flash-message-content test">
+    test flash
+</div>
+<? require_once "template/shared/flash_message.php"; ?>
 <script type="text/javascript" src="/assets/js/homepage/homepage.js?bust=<?= $cache_version ?>"></script>
 <? require_once "template/shared/footer.php"; ?>
