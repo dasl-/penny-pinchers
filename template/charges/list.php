@@ -1,5 +1,16 @@
 <? require_once "template/shared/header.php"; ?>
-<h2><?= "$user_name's Charges" ?></h2>
+
+<?
+    if ($logged_in_user->user_id === $user_id) {
+?>
+        <h2>Your Charges</h2>
+<?
+    } else {
+?>
+        <h2><?= "$user_name's Charges" ?></h2>
+<?
+    }
+?>
 
 <table>
     <tr>
