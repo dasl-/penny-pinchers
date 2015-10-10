@@ -25,6 +25,7 @@
             }
 
             var data = {
+                user_id: global_data.user_id,
                 title: $.trim(this.$title.val()),
                 text: $.trim(this.$text.val()),
             };
