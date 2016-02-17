@@ -29,7 +29,7 @@ class Finder_Charge extends Finder_Base {
 
     protected function registerManagedQueries() {
         $table = Model_Charge::TABLE_NAME;
-        $query = "SELECT * FROM $table WHERE user_id = :user_id";
+        $query = "SELECT * FROM $table WHERE user_id = :user_id ORDER BY charge_date ASC";
         $this->registerManagedQuery("findByUserId", $query, null, self::RETURN_MANY);
 
         $query = "DELETE FROM $table WHERE charge_id = :charge_id";
