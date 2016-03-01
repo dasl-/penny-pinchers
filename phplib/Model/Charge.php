@@ -27,30 +27,47 @@ class Model_Charge extends Model_Base {
 
 class Finder_Charge extends Finder_Base {
 
+    const MIN_CHARGE_DATE = 0;
+    const MAX_CHARGE_DATE = 2147483647; // MySQL signed int max.
+
     protected function registerManagedQueries() {
         $table = Model_Charge::TABLE_NAME;
-        $query = "SELECT * FROM $table WHERE user_id = :user_id ORDER BY charge_date ASC";
-        $this->registerManagedQuery("findByUserId", $query, null, self::RETURN_MANY);
+        $query = "SELECT * FROM $table WHERE user_id = :user_id AND charge_date >= :start_date AND " .
+            "charge_date <= :end_date ORDER BY charge_date ASC";
+        $this->registerManagedQuery("findByUserIdAndChargeDates", $query, null, self::RETURN_MANY);
 
         $query = "DELETE FROM $table WHERE charge_id = :charge_id";
         $this->registerManagedQuery("delete", $query, null, self::RETURN_NONE);
 
-        $query = "SELECT user_id, sum(amount) as total_charges FROM $table GROUP BY user_id";
-        $this->registerManagedQuery("findTotalChargesByUserId", $query, null, self::RETURN_ARRAY);
+        $query = "SELECT user_id, sum(amount) as total_charges FROM $table WHERE " .
+            "charge_date >= :start_date AND charge_date <= :end_date GROUP BY user_id";
+        $this->registerManagedQuery("findTotalChargesByUserIdForChargeDates", $query, null, self::RETURN_ARRAY);
 
         $query = "SELECT * FROM $table ORDER BY create_date DESC LIMIT 10";
         $this->registerManagedQuery("findRecentlyAddedCharges", $query);
     }
 
     /**
+     * Use $start_date and $end_date to only find charges between those dates.
+     * One or both can be null, in which it is unlimited in that direction.
      * @param  int $user_id
+     * @param int $start_date
+     * @param int $end_date
      * @return Model_Charge[]
      */
-    public function findByUserId($user_id) {
+    public function findByUserIdAndChargeDates($user_id, $start_date = null, $end_date = null) {
+        if ($start_date === null) {
+            $start_date = self::MIN_CHARGE_DATE;
+        }
+        if ($end_date === null) {
+            $end_date = self::MAX_CHARGE_DATE;
+        }
         $params = [
-            ':user_id' => $user_id,
+            ":user_id" => $user_id,
+            ":start_date" => $start_date,
+            ":end_date" => $end_date,
         ];
-        return $this->doManagedQuery("findByUserId", $params);
+        return $this->doManagedQuery("findByUserIdAndChargeDates", $params);
     }
 
     /**
@@ -67,10 +84,24 @@ class Finder_Charge extends Finder_Base {
 
     /**
      * Find sum of all charges grouped by user_id
+     * Use $start_date and $end_date to only find charges between those dates.
+     * One or both can be null, in which it is unlimited in that direction.
+     * @param int $start_date
+     * @param int $end_date
      * @return array
      */
-    public function findTotalChargesPerPersonByUserId() {
-        $charges = $this->doManagedQuery("findTotalChargesByUserId");
+    public function findTotalChargesPerPersonByUserIdForChargeDates($start_date = null, $end_date = null) {
+        if ($start_date === null) {
+            $start_date = self::MIN_CHARGE_DATE;
+        }
+        if ($end_date === null) {
+            $end_date = self::MAX_CHARGE_DATE;
+        }
+        $params = [
+            ":start_date" => $start_date,
+            ":end_date" => $end_date,
+        ];
+        $charges = $this->doManagedQuery("findTotalChargesByUserIdForChargeDates", $params);
         $total_charges_by_user_id = [];
         foreach ($charges as $user_info) {
             $user_id = $user_info["user_id"];

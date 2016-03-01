@@ -1,5 +1,5 @@
 <? require_once "template/shared/header.php"; ?>
-<h2>Welcome to Austere October</h2>
+<h2>Welcome to <?= $month_competition_name ?></h2>
 <p>Losers have to chug 40s at the end of the month.</p>
 
 <h2>Users</h2>

@@ -8,6 +8,7 @@ class Controller_Homepage extends Controller_Base {
 
         $thoughts = Finder_Thought::getFinder()->findRecentThoughts();
         $this->assign("thoughts", $thoughts);
+        $this->assign("month_competition_name", Month::getCompetitionName());
 
         $this->render("homepage/homepage");
     }
@@ -18,7 +19,10 @@ class Controller_Homepage extends Controller_Base {
 
     private function assignLeaderboardData() {
         $users = Finder_User::getFinder()->findAll();
-        $total_charges_by_user_id = Finder_Charge::getFinder()->findTotalChargesPerPersonByUserId();
+        $total_charges_by_user_id = Finder_Charge::getFinder()->findTotalChargesPerPersonByUserIdForChargeDates(
+            Month::getEpochDateForBeginningOfMonth(),
+            Month::getEpochDateForEndOfMonth()
+        );
         $this->assign("total_charges_by_user_id", $total_charges_by_user_id);
         $this->assign("users", $users);
     }
