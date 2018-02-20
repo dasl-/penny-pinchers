@@ -347,8 +347,8 @@ abstract class Finder_Base {
             }
         }
 
-        $statement->execute();
-        if ($statement === false) {
+        $execute_result = $statement->execute();
+        if ($execute_result === false) {
             throw new RuntimeException("Unable to execute PDO statement");
         }
 
